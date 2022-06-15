@@ -1,0 +1,64 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+
+  build:
+    strategy: 
+      matrix: 
+        os: [ macOS-latest , windows-latest]
+#        os: [ubuntu-latest, windows-latest, macOS-latest]
+    runs-on: ${{matrix.os}}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run a multi-line script
+        run: |
+          uname -a
+          npm i
+          npm run make
+          du -d 3 out
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: app
+          path: out/make
+          retention-days: 5
+
+#   build-linux:
+#     strategy: 
+#       matrix: 
+#         os: [ ubuntu-latest]
+# #        os: [ubuntu-latest, windows-latest, macOS-latest]
+#     runs-on: ${{matrix.os}}
+
+#     steps:
+#       - uses: actions/checkout@v3
+#       - name: Run a multi-line script
+#         run: |
+#           uname -a
+#           npm i
+#           npm run make
+#           du -d 3 out
+#       - name: Upload a Build Artifact
+#         uses: actions/upload-artifact@v3.1.0
+#         with:
+#           name: app-linux
+#           path: out/make
+  
+
+          

@@ -1,0 +1,60 @@
+{
+  "name": "electron-app",
+  "description": "electron-app",
+  "author": "zysc",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "switch-node": "nvm install 14.17.4",
+    "ico": "png-to-ico logo/favicon.png > logo/favicon.ico"
+  },
+  "main": "main.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@electron-forge/cli": "6.0.0-beta.54",
+    "@electron-forge/maker-deb": "6.0.0-beta.54",
+    "@electron-forge/maker-rpm": "6.0.0-beta.54",
+    "@electron-forge/maker-squirrel": "6.0.0-beta.54",
+    "@electron-forge/maker-zip": "6.0.0-beta.54",
+    "electron": "15.3.5",
+    "nvm": "0.0.3",
+    "yarn": "1.22.17",
+    "png-to-ico": "2.1.4"
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "name":"test-app",
+        "executableName":"test-app",
+        "_icon":"./logo/favicon"
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "test-app"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  }
+}
